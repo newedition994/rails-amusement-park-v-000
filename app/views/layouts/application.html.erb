@@ -24,6 +24,16 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
            <!--  nav here -->
+           <%= if current_user %>
+              <li><%= link_to "See attractions", attractions_path %></li>
+              <%= if current_user.admin %>
+                <li><%= link_to "New Attractions", new_attractions_path %></li>
+              <% end %>
+              <li><%= link_to "Log Out", '/logout', :method => :post %></li>
+           <% else %>
+              <li><%= link_to "Sign up", new_user_path %></li>
+              <li><%= link_to "Sign in", '/signin' %></li>
+           <% end %>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -31,6 +41,7 @@
 
     <!-- content -->
     <div class="container"  role="main">
+      <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
       <%= yield %>
     </div>
 

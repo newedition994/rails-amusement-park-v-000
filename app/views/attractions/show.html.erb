@@ -1,11 +1,9 @@
-<h1><%= @attraction.name %></h1>
-
-<%= form_tag("/rides/new", method: "post") do %>
-  <%= hidden_field_tag(:attraction_id, @attraction.id ) %>
-  <%= hidden_field_tag(:user_id, current_user.id ) %>
-  <%= submit_tag("Go on this ride") %>
+<% if current_user.admin %>
+  <p>Show <%= @attraction.name %></p>
+  <%= link_to "Edit Attraction", edit_attraction_path(@attraction) %>
 <% end %>
 
-<% if current_user.admin? %>
-  <%= link_to "Edit Attraction", edit_attraction_path(@attraction) %>
+<%= form_for @attraction, :url => {controller: "attractions", action: "ride", method: "post"}  do |t| %>
+  <%= t.hidden_field :id %>
+  <%= t.submit "Go on this ride" %>
 <% end %>

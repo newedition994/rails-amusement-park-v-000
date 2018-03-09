@@ -5,8 +5,7 @@ class AttractionsController < ApplicationController
   end
 
   def show
-    @attraction = Attraction.find_by(params[:id])
-    @ride = Ride.new
+    @attraction = Attraction.find(params[:id])
   end
 
   def new
@@ -29,7 +28,12 @@ class AttractionsController < ApplicationController
   def update
     @attraction = Attraction.find(params[:id])
     @attraction.update(attraction_params)
-    redirect_to attraction_path
+    redirect_to attraction_path(@attraction)
+  end
+
+  def ride
+    @attraction = Attraction.find(params[:attraction][:id])
+    redirect_to current_user
   end
 
   private

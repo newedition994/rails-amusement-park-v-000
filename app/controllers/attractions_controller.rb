@@ -1,12 +1,12 @@
 class AttractionsController < ApplicationController
-  before_action :set_attraction, only: [:show, :edit, :update, :destroy]
 
   def index
     @attractions = Attraction.all
   end
 
   def show
-    @attraction = Attraction.find(params[:id])
+    @attraction = Attraction.find_by(params[:id])
+    @ride = Ride.new
   end
 
   def new

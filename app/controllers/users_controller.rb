@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   end
 
   def new
-      @user = User.new
+    @user = User.new
   end
 
   def create
@@ -20,6 +20,11 @@ class UsersController < ApplicationController
   def show
     require_logged_in
     @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update(user_params)
   end
 
   private

@@ -1,8 +1,8 @@
 <ul>
-  <li>Name: <%= user.name %></li>
-  <li>Height: <%= user.height %></li>
-  <li>Mood: <%= user.mood%></li>
-  <li>Tickets: <%= user.tickets %></li>
+  <li>Name: <%= @user.name %></li>
+  <li>Height: <%= @user.height %></li>
+  <li>Mood: <%= @user.mood%></li>
+  <li>Tickets: <%= @user.tickets %></li>
   <% if user.admin %>
     <li>ADMIN</li>
   <% end %>

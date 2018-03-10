@@ -5,5 +5,12 @@
 
 <%= form_for @attraction, :url => {controller: "attractions", action: "ride", method: "post"}  do |t| %>
   <%= t.hidden_field :id %>
+  <%= t.label "Name: #{@attraction.name}" %><br>
+  <%= t.label "Ticket Requirement: #{@attraction.tickets}" %><br>
+  <%= t.label "Height Requirement: #{@attraction.min_height}"%><br>
+  <%= t.label "Nausea Rating: #{@attraction.nausea_rating}"%><br>
+  <%= t.label "Happiness Rating: #{@attraction.happiness_rating}"%><br>
   <%= t.submit "Go on this ride" %>
 <% end %>
+
+<%= link_to 'Back', attraction_path %>

@@ -32,7 +32,11 @@ class AttractionsController < ApplicationController
   end
 
   def ride
-    @attraction = Attraction.find(params[:attraction][:id])
+    @attraction = Attraction.find_by(id: params[:attraction][:id])
+    current_user.tickets = current_user.tickets - @attraction.tickets
+    current_user.happiness = current_user.happiness - @attraction.happiness_rating
+    current_user.save
+    #binding.pry
     redirect_to current_user
   end
 

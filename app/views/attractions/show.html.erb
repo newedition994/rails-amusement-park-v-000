@@ -1,16 +1,18 @@
+<label>Name:</label> <%= @attraction.name %><br>
+<label>Ticket Requirement:</label> <%= @attraction.tickets %><br>
+<label>Height Requirement:</label> <%= @attraction.min_height %><br>
+<label>Nausea Rating:</label> <%= @attraction.nausea_rating %><br>
+<label>Happiness Rating:</label> <%= @attraction.happiness_rating %><br>
+
+
 <% if current_user.admin %>
-  <p>Show <%= @attraction.name %></p>
-  <%= link_to "Edit Attraction", edit_attraction_path(@attraction) %>
+  <%= link_to 'Edit Attraction', [:edit, @attraction] %>
+<% else %>
+  <form action="/rides/new" method="post">
+    <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+    <%= tag(:input, :type => "hidden", :name => :user_id, :value => current_user.id) %>
+    <%= tag(:input, :type => "hidden", :name => :attraction_id, :value => @attraction.id) %>
+    <input type="submit" value="Go on this ride">
+  </form>
 <% end %>
-
-<%= form_for @attraction, :url => {controller: "attractions", action: "ride", method: "post"}  do |t| %>
-  <%= t.hidden_field :id %>
-  <%= t.label "Name: #{@attraction.name}" %><br>
-  <%= t.label "Ticket Requirement: #{@attraction.tickets}" %><br>
-  <%= t.label "Height Requirement: #{@attraction.min_height}"%><br>
-  <%= t.label "Nausea Rating: #{@attraction.nausea_rating}"%><br>
-  <%= t.label "Happiness Rating: #{@attraction.happiness_rating}"%><br>
-  <%= t.submit "Go on this ride" %>
-<% end %>
-
-<%= link_to 'Back', attraction_path %>
+<%= link_to 'Back', attractions_path %>

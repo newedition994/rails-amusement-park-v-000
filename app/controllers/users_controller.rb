@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
   def index
   end
 
@@ -10,24 +12,33 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-
       redirect_to user_path(@user)
     else
-      redirect_to new_user_path
+      redirect_to :new
     end
   end
 
   def show
-    require_logged_in
-    @user = User.find(params[:id])
+    @message = params[:message] if params[:message]
+    @message ||= false
+  end
+
+  def edit
   end
 
   def update
-    @user = User.find(params[:id])
-    @user.update(user_params)
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render :edit
+    end
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:name, :password, :nausea, :happiness, :tickets, :height, :admin)

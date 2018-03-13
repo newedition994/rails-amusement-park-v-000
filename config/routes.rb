@@ -1,19 +1,11 @@
 Rails.application.routes.draw do
 
-  root 'static_pages#home'
-  resources :sessions, only: [:create]
-  get '/signin', to: 'sessions#new'
-  post '/logout', to: 'sessions#destroy'
-  post '/users/:id' => 'users#ride'
-  patch '/ride', to: 'attractions#ride'
-
-
-  get '/rides/new/:user_id/:attraction_id', to: 'rides#new'
-
-  resources :attractions
-  resources :rides
-
+  root to: 'static_pages#home'
   resources :users
-  #root '/', to: 'static_pages#home'
+  resources :attractions
+  get "/signin", to: "sessions#new"
+  post "/sessions/create", to: "sessions#create"
+  delete "/signout", to: "sessions#destroy"
+  post "/rides/new", to: "rides#new"
 
 end

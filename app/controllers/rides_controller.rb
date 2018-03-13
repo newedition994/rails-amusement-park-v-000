@@ -1,7 +1,13 @@
 class RidesController < ApplicationController
   def new
-    @ride = Ride.new(attraction: Attraction.find_by(id: params[:attraction][:id]), user: current_user)
-    flash[:alert] = @ride.take_ride
-    redirect_to user_path(@ride.user)
+    @ride = Ride.create(ride_params)
+    @message = @ride.take_ride
+    redirect_to user_path(@ride.user, :message => @message)
+  end
+
+  private
+
+  def ride_params
+    params.permit(:user_id, :attraction_id)
   end
 end
